@@ -1,8 +1,8 @@
 import 'package:expenses/components/transaction_form.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'components/transaction_list.dart';
-import 'models/transaction.dart';
+import './components/transaction_list.dart';
+import './models/transaction.dart';
 
 main() => runApp(ExpensesApp());
 
@@ -15,15 +15,21 @@ class ExpensesApp extends StatelessWidget {
     return MaterialApp(
       home: const MyHomePage(),
       theme: ThemeData(
+        fontFamily: 'Quicksand',
         useMaterial3: false,
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.purple,
-          foregroundColor: Colors.white,
-        ),
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.amber,
           primary: Colors.purple,
           secondary: Colors.amber,
+        ),
+        appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+          backgroundColor: Colors.purple,
+          foregroundColor: Colors.white,
         ),
       ),
     );
@@ -38,7 +44,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _transactions = [
+  final List<Transaction> _transactions = [
     Transaction(
       id: 't1',
       title: 'Novo Tênis de Corrida',
