@@ -77,8 +77,32 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
     Transaction(
       id: 't2',
-      title: 'Conta de Luz',
-      value: 211.30,
+      title: 'Conta de Agua',
+      value: 80.00,
+      date: DateTime.now().subtract(Duration(days: 4)),
+    ),
+    Transaction(
+      id: 't3',
+      title: 'Assinatura Netflix',
+      value: 45.00,
+      date: DateTime.now().subtract(Duration(days: 4)),
+    ),
+    Transaction(
+      id: 't4',
+      title: 'Kirk Hammet',
+      value: 210.00,
+      date: DateTime.now().subtract(Duration(days: 4)),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'Biruleibe',
+      value: 500.00,
+      date: DateTime.now().subtract(Duration(days: 4)),
+    ),
+    Transaction(
+      id: 't6',
+      title: 'Conta de China',
+      value: 2.00,
       date: DateTime.now().subtract(Duration(days: 4)),
     ),*/
   ];
@@ -108,6 +132,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // Fecha o modal
     Navigator.of(context).pop();
+  }
+
+
+  _deleteTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((tr) => tr.id == id);
+    });
   }
 
 
@@ -144,7 +175,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,// alinhamento
           children: [
             Chart(_recentTransactions),// gráfico
-            TransactionList(_transactions),// lista de transações
+            TransactionList(_transactions, _deleteTransaction),// lista de transações
           ],
         ),
       ),

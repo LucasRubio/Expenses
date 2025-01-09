@@ -5,15 +5,16 @@ import 'package:intl/intl.dart';
 
 // classe que cria a lista de transações
 class TransactionList extends StatelessWidget {
-  final List<Transaction> transactions; // lista de transações
+  final List<Transaction> transactions;
+  final void Function(String) onRemove; // lista de transações
 
-  TransactionList(this.transactions);// construtor
+  TransactionList(this.transactions, this.onRemove);// construtor
 
   @override
   // constrói a lista de transações
   Widget build(BuildContext context) {
-    return Container(
-      height: 500,
+      return Container(
+        height: 500,
       child: transactions.isEmpty ? Column(// verifica se a lista de transações está vazia
         children: <Widget> [// se estiver vazia, exibe uma mensagem
           SizedBox(
@@ -67,7 +68,7 @@ class TransactionList extends StatelessWidget {
               trailing: IconButton(// botão
                 icon: Icon(Icons.delete),
                 color: Theme.of(context).colorScheme.error,
-                onPressed: () {},
+                onPressed: () {onRemove(tr.id);},
               ),
             ),
           );
