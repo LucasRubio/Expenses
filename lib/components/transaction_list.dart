@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import '../models/transaction.dart';
 import 'package:intl/intl.dart';
 
-class TransactionList extends StatelessWidget {
-  final List<Transaction> transactions;
 
-  TransactionList(this.transactions);
+// classe que cria a lista de transações
+class TransactionList extends StatelessWidget {
+  final List<Transaction> transactions; // lista de transações
+
+  TransactionList(this.transactions);// construtor
 
   @override
+  // constrói a lista de transações
   Widget build(BuildContext context) {
     return Container(
-      height: 350,
-      child: transactions.isEmpty ? Column(
-        children: <Widget> [
+      height: 500,
+      child: transactions.isEmpty ? Column(// verifica se a lista de transações está vazia
+        children: <Widget> [// se estiver vazia, exibe uma mensagem
           SizedBox(
             height: 20,
           ),
@@ -34,53 +37,38 @@ class TransactionList extends StatelessWidget {
             ),
           ),
         ],
-      ): ListView.builder(
+      ): ListView.builder(// se não estiver vazia, exibe a lista de transações
         itemCount: transactions.length,
-        itemBuilder: (ctx, index) {
-          final tr = transactions[index];
+        itemBuilder: (ctx, index) {// cria um item da lista
+          final tr = transactions[index];// item da lista
           return Card(
-            child: Row(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: 15,
-                    vertical: 10,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.purple.shade100,
-                      width: 2,
-                    ),
-                  ),
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    'R\$ ${tr.value.toStringAsFixed(2)}',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.purple,
-                    ),
+            elevation: 5,
+            margin: EdgeInsets.all(6),
+            child: ListTile(
+              leading: CircleAvatar(// avatar
+                radius: 30,
+                child: Padding(
+                  padding: const EdgeInsets.all(6),
+                  child: FittedBox(
+                    child: Text('R\$${tr.value}'),
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr.title,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      DateFormat('dd/MMM/y').format(tr.date),
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                  ],
-                )
-              ],
+              ),
+              title: Text(// título
+                tr.title,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(// subtítulo
+                DateFormat('d MMM y', 'pt-br').format(tr.date),
+              ),
+              trailing: IconButton(// botão
+                icon: Icon(Icons.delete),
+                color: Theme.of(context).colorScheme.error,
+                onPressed: () {},
+              ),
             ),
           );
         },
