@@ -14,7 +14,7 @@ class TransactionList extends StatelessWidget {
   // constrói a lista de transações
   Widget build(BuildContext context) {
       return Container(
-        height: 500,
+        height: MediaQuery.of(context).size.height * 0.6,
       child: transactions.isEmpty ? Column(// verifica se a lista de transações está vazia
         children: <Widget> [// se estiver vazia, exibe uma mensagem
           SizedBox(
