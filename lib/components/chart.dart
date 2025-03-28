@@ -8,8 +8,7 @@ class Chart extends StatelessWidget {
   // lista de transações recentes
   final List<Transaction> recentTransaction;
   // construtor
-  Chart(this.recentTransaction);
-
+  const Chart(this.recentTransaction, {super.key});
 
   // lista de transações agrupadas
   List<Map<String, Object>> get groupedTransactions {
@@ -24,11 +23,14 @@ class Chart extends StatelessWidget {
 
       for (var i = 0; i < recentTransaction.length; i++) {
         // percorre a lista de transações
-        bool sameDay = recentTransaction[i].date.day == weekDay.day; // verifica se o dia é o mesmo
+        bool sameDay = recentTransaction[i].date.day ==
+            weekDay.day; // verifica se o dia é o mesmo
 
-        bool sameMonth = recentTransaction[i].date.month == weekDay.month; // verifica se o mês é o mesmo
+        bool sameMonth = recentTransaction[i].date.month ==
+            weekDay.month; // verifica se o mês é o mesmo
 
-        bool sameYear = recentTransaction[i].date.year == weekDay.year; // verifica se o ano é o mesmo
+        bool sameYear = recentTransaction[i].date.year ==
+            weekDay.year; // verifica se o ano é o mesmo
 
         if (sameDay && sameMonth && sameYear) {
           // verifica se a data é a mesma
@@ -36,7 +38,7 @@ class Chart extends StatelessWidget {
         }
       }
 
-      return {        
+      return {
         'day': DateFormat.E('pt-br').format(weekDay)[0].toUpperCase(),
         'value': totalSum,
       }; // retorna o dia e o valor total

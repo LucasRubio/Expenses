@@ -6,7 +6,7 @@ class TransactionForm extends StatefulWidget {
   // função que envia os dados do formulário
   final Function(String, double, DateTime) onSubmit;
 
-  TransactionForm(this.onSubmit);
+  const TransactionForm(this.onSubmit, {super.key});
 
   @override
   // cria o estado do formulário
@@ -27,7 +27,6 @@ class _TransactionFormState extends State<TransactionForm> {
     final value = double.tryParse(_valueController.text) ??
         0.0; // pega o valor do controlador
     final date = _selectedDate; // pega a data selecionada
-    
 
     // verifica se o título está vazio ou o valor é menor ou igual a 0
     if (title.isEmpty || value <= 0) {
@@ -44,7 +43,8 @@ class _TransactionFormState extends State<TransactionForm> {
       initialDate: DateTime.now(),
       firstDate: DateTime(2020),
       lastDate: DateTime.now(),
-    ).then((pickedDate) {// pega a data selecionada
+    ).then((pickedDate) {
+      // pega a data selecionada
       if (pickedDate == null) {
         return;
       }
@@ -52,7 +52,6 @@ class _TransactionFormState extends State<TransactionForm> {
         _selectedDate = pickedDate;
       });
     });
-    
   }
 
   @override
@@ -67,52 +66,54 @@ class _TransactionFormState extends State<TransactionForm> {
             controller: _titleController,
             onSubmitted: (_) =>
                 _submitForm(), // envia o formulário ao pressionar enter
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               // decoração do campo de texto
               labelText: 'Título',
             ),
           ),
           TextField(
             controller: _valueController,
-            keyboardType: TextInputType.numberWithOptions(decimal: true),
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
             onSubmitted: (_) =>
                 _submitForm(), // envia o formulário ao pressionar enter
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Valor (R\$)',
             ),
           ),
-          Container(
+          SizedBox(
             height: 70,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(DateFormat('d MMM y', 'pt-br').format(_selectedDate).toString(),
-                      style: TextStyle(
+                  Text(
+                      DateFormat('d MMM y', 'pt-br')
+                          .format(_selectedDate)
+                          .toString(),
+                      style: const TextStyle(
                         color: Colors.white54,
                       )),
                   TextButton(
-                    child: Icon(
+                    child: const Icon(
                       Icons.calendar_today,
                       color: Colors.white,
                     ),
                     onPressed: () => _showDatePicker(),
-                    
                   ),
                   //
                 ]),
           ),
           TextButton(
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.all(
+                Colors.red.shade500,
+              ),
+            ),
+            onPressed: _submitForm,
             child: Text(
               'Nova Transação',
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(
-                Colors.red.shade500,
-              ),
-            ),
-            onPressed: _submitForm, // envia o formulário
+            ), // envia o formulário
           )
         ]),
       ),

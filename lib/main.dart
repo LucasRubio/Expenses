@@ -6,13 +6,10 @@ import './components/chart.dart';
 import './models/transaction.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-
 // main que roda o app
-void main() => 
-  initializeDateFormatting('pt-br', null).then((_) {
-    runApp(ExpensesApp());
-  });
-
+void main() => initializeDateFormatting('pt-br', null).then((_) {
+      runApp(ExpensesApp());
+    });
 
 // classe que cria o app
 class ExpensesApp extends StatelessWidget {
@@ -28,18 +25,19 @@ class ExpensesApp extends StatelessWidget {
     // retorna o Materialapp
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(),// widget que cria a tela inicial
-      theme: ThemeData(// tema do app
+      home: const MyHomePage(), // widget que cria a tela inicial
+      theme: ThemeData(
+        // tema do app
         fontFamily: 'Quicksand',
         useMaterial3: false,
         colorScheme: ColorScheme.fromSeed(
-          brightness: Brightness.dark,
-          seedColor: Colors.amber,
-          primary: Colors.purple,
-          secondary: Colors.amber,
-          error: Colors.red
-        ),
-        appBarTheme: AppBarTheme(// tema do appbar
+            brightness: Brightness.dark,
+            seedColor: Colors.amber,
+            primary: Colors.purple,
+            secondary: Colors.amber,
+            error: Colors.red),
+        appBarTheme: const AppBarTheme(
+          // tema do appbar
           titleTextStyle: TextStyle(
             fontFamily: 'OpenSans',
             fontSize: 20,
@@ -52,13 +50,16 @@ class ExpensesApp extends StatelessWidget {
     );
   }
 }
+
 // classe que cria a tela inicial
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();// cria o estado da tela
+  State<MyHomePage> createState() =>
+      _MyHomePageState(); // cria o estado da tela
 }
+
 // estado da tela inicial
 class _MyHomePageState extends State<MyHomePage> {
   // lista de transações
@@ -110,10 +111,9 @@ class _MyHomePageState extends State<MyHomePage> {
   // Lista que retorna as transações recentes
   List<Transaction> get _recentTransactions {
     return _transactions.where((tr) {
-      return tr.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+      return tr.date.isAfter(DateTime.now().subtract(const Duration(days: 7)));
     }).toList();
   }
-
 
   // Função que adiciona uma transação
   _addTransaction(String title, double value, DateTime date) {
@@ -134,13 +134,11 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.of(context).pop();
   }
 
-
   _deleteTransaction(String id) {
     setState(() {
       _transactions.removeWhere((tr) => tr.id == id);
     });
   }
-
 
   // Função que abre o modal de adicionar transação
   _openTransactionFormModal(BuildContext context) {
@@ -166,16 +164,16 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: const Icon(Icons.add),
             onPressed: () => _openTransactionFormModal(context),
           ),
-          
         ],
       ),
       // Corpo da tela
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,// alinhamento
+          crossAxisAlignment: CrossAxisAlignment.stretch, // alinhamento
           children: [
-            Chart(_recentTransactions),// gráfico
-            TransactionList(_transactions, _deleteTransaction),// lista de transações
+            Chart(_recentTransactions), // gráfico
+            TransactionList(
+                _transactions, _deleteTransaction), // lista de transações
           ],
         ),
       ),
